@@ -1,0 +1,431 @@
+Course Syllabus
+DS-UA 202: Responsible Data Science, Fall 2026
+
+Syllabus
+
+ 
+
+Instructors: Prof. Julia Stoyanovich and Prof. Mateo Dulce Rubio 
+
+
+Lectures: Monday and Wednesday, 2:00-3:15pm, 238 Thompson St (GCASL), Room C95
+
+
+Office hours: See schedule below, starting the week of September 7th
+
+
+Labs
+
+Time
+
+Location
+
+Section Leader
+
+Friday, 9:30am-10:45am
+
+31 Washington Pl (Silver Ctr), Room 414
+
+Seungeun Lee 
+
+Friday, 11:00am-12:15pm
+
+194 Mercer St, Room 304 
+
+Reetahan Mukhopadhyay 
+
+Friday, 12:30pm-1:45pm
+
+12 Waverly Pl, Room L120 
+
+Chuhan Ku  
+
+Friday, 2:00pm-3:15pm
+
+70 Washington Sq S (Bobst), Room LL138
+
+Cedric Lam 
+
+Friday, 3:30pm-4:45pm
+
+12 Waverly Pl, Room L120
+
+Jack Hariri 
+
+ 
+
+Course Staff
+
+Name
+
+Email
+
+Pronouns
+
+Office hours
+
+Location
+
+Julia Stoyanovich
+
+stoyanovich@nyu.edu 
+
+she/her
+
+Wed, noon-1pm
+
+60 5th Ave, #703 https://nyu.zoom.us/my/stoyanovich
+
+Mateo Dulce Rubio
+
+mateo.d@nyu.edu 
+
+he/him
+
+Tue, 2-3pm
+
+60 5th Ave, #242  
+
+https://nyu.zoom.us/j/312583821
+
+Seungeun Lee 
+
+seungeun.lee@nyu.edu 
+
+she/her
+
+Thurs, 10-11am
+
+60 5th Ave, #242
+
+https://nyu.zoom.us/my/seungeun.lee
+
+Reetahan Mukhopadhyay
+
+rm6609@nyu.edu 
+
+he/him
+
+Thurs, 3-4pm
+
+60 5th Ave, #244
+
+https://nyu.zoom.us/my/reetahan
+
+Chuhan Ku
+
+ck3504@nyu.edu 
+
+she/her
+
+Tue, 3-4pm
+
+60 5th Ave, #763
+
+https://nyu.zoom.us/j/99182102029
+
+Cedric Lam
+
+cedriclam@nyu.edu 
+
+he/him
+
+Wed 3.30-4.30pm
+
+60 5th Ave, #244
+
+https://nyu.zoom.us/j/5901513770
+
+Jack Hariri
+
+jrh635@nyu.edu 
+
+he/him
+
+Mon, 4-5pm
+
+60 5th Ave, #242
+
+https://nyu.zoom.us/j/5152582092
+
+Robin Wang
+
+cw3544@nyu.edu 
+
+he/him
+
+Mon, 10a.m.-11a.m.
+
+60 5th Ave, #242
+
+https://nyu.zoom.us/j/8503688697
+
+Course Description
+
+The first wave of data science focused on accuracy and efficiency: on what we can do with data. The second wave is about responsibility: what we should and should not do. This course aims to give future AI professionals the technical skills and the socially grounded understanding necessary to incorporate algorithmic fairness, transparency, and responsible data engineering objectives into the design of AI systems, alongside topics in technology ethics and legal compliance. 
+
+The course is organized into five modules: an introduction to the hallmarks of responsible AI and to competing stakeholder values; algorithmic fairness, including fairness in classification and in risk assessment; the responsible use of data across the lifecycle, from profiling and cleaning to responsible model selection; transparency and interpretability, including black-box auditing, SHAP and LIME; and AI safety, covering generative AI, its risks and harms, and the emerging legal and regulatory landscape. Weekly labs pair each topic with hands-on work in Python using open-source tooling, and the course culminates in a hands-on project in which small teams of students conduct an audit of an AI system used in decision-making.
+
+The course is structured into a sequence of lectures, hands-on labs, and accompanying assignments.  The assignments include labs, quizzes, homeworks, and a course project. This course uses the python programming language. All labs and homework assignments are expected to be formulated as notebooks in Google Colaboratory. 
+
+While none of the homeworks are stand-alone writing assignments, writing is embedded in the homeworks. During the homeworks, students write computer programs and provide short essays on the interpretation of the data and the implications for the data around some decision or problem that the data informs. The writing length would typically be one to two pages for these essays.
+
+Course Resources
+
+All readings, lab notebooks, assignment specifications, slides, and lab and lecture recordings are posted on Brightspace.
+Assignment submission and grading, unless otherwise noted, will be on Gradescope.
+We will use edstem as the discussion board for the course.
+Learning Outcomes
+
+After successfully completing the course, students will develop a nuanced understanding of different responsible data science objectives, and will learn to communicate them to others. They will be able to use this understanding to develop technical interventions, and to critique and improve interventions developed by others. Specifically, students will be able to:
+
+Explain that AI impacts different stakeholders differently, that stakeholders’ values and goals may be at odds with each other, and that technical choices are also normative choices: there is rarely one correct way to implement a technical method, because of the multitude of objectives, some of which may be incompatible.
+
+Articulate the differences between various interpretations of algorithmic fairness, and relate these interpretations to the points of view of different stakeholders.
+
+Reason about the lifecycle of data and models holistically when evaluating the impacts of technical design choices, recognizing that lifecycle stages impact each other in complex ways and usually cannot be cleanly decoupled.
+
+Implement a computer program that assesses the impact of data preprocessing operations on different aspects of the performance of a model trained on the preprocessed data.
+
+Implement a computer program that explains the decisions of a classifier, and a program that audits a black-box classifier.
+
+Explain the role of ethical principles and legal frameworks, including data protection law and emerging AI-specific regulation, in the responsible design, development, and use of AI.
+
+Communicate the results of an audit of an AI system used in decision-making to technical and non-technical audiences, articulating trade-offs in performance, fairness, and interpretability in view of different stakeholders and their values, and recognize that technologists play an important role in whether and how AI systems are designed, developed and used, and consequently carry substantial professional responsibility for the work they do.
+
+Describe how generative AI systems are built, the risks and harms they introduce, and the safety and governance mechanisms that apply to them.
+
+Weekly schedule (for reference only, subject to change)
+[Module 1: Introduction] (weeks 1–2); Readings: Foundations of RAI, Part I 
+
+Week 1 / September 2–4, 
+
+Required reading: Ch. 1, §1.1–1.3 
+Lecture (Wed, 9/2): Course introduction, hallmarks of responsible AI.
+Lab (Fri, 9/4): Course AI use policy discussion activities (asynch / discussion board, not in person); class agrees on the policy, students receive participation credit
+Week 2 / September 7–11 (no Monday lecture — Labor Day)
+
+Required reading: Ch. 1, §1.4–1.6, ProPublica's "Machine Bias" 
+Lecture (Wed, 9/9): AI ethics teaser; navigating competing stakeholder values. 
+Lab (Fri, 9/11): COMPAS (ProPublica's Machine Bias)
+Assessment
+
+Written reflection assigned Fri 9/11, due Tue 9/22, 11:59 PM: Respond to a Chapter 1 reflection question, following the AI use policy agreed in Lab 1, including an AI-use disclosure; graded on completion
+
+Project assigned Mon 9/14; teams of 2, 3, or 4 with clear scope based on team size
+
+[Module 2: Algorithmic Fairness] (weeks 3–5); Readings: Foundations of RAI, Part II 
+
+Week 3 / September 14–18
+
+Required reading: Ch. 3
+Lecture (Mon, 9/14): Foundations of algorithmic fairness: motivation; legal grounding of individual and group fairness; fairness through awareness.
+Lecture (Wed, 9/16): Learning fair representations; the (im)possibility of fairness and worldviews; the COMPAS debate begins.
+Lab (Fri, 9/18): Detecting and mitigating bias with FairLearn
+Quiz 1 (during lab): covers Module 1 (Ch. 1)
+Week 4 / September 21–25
+
+Required reading: Ch. 4: §4.1–4.2
+Lecture (Mon, 9/21): Fairness in classification, the why: sources of bias along the pipeline; fairness as equality of opportunity; who are the groups.
+Lecture (Wed, 9/23): Fairness in classification, the what: fairness measures as normative choices; parity in outcomes, predictive values, error rates; a first incompatibility.
+Lab (Fri, 9/25): Detecting and mitigating bias with FairLearn, cont.
+Week 5 / September 28–October 2
+
+Required reading: Ch. 4: §4.3–4.4; Ch. 5: §5.1–5.5; 
+Lecture (Mon, 9/28): Fairness in classification, the how: pre-, in-, and post-processing interventions; evaluating fairness claims in the lab and in the wild.
+Lecture (Wed, 9/30): Fairness in risk assessment: calibration and error rate balance for scores; the impossibility theorem closes the loop on the week 2 lab; label bias; liberty and the limits of prediction. Module synthesis: choosing a fairness measure is a normative act.
+Lab (Fri, 10/2): Course project discussion: connecting the fairness toolkit to the ADS audit
+
+Quiz 2 (during lab): covers weeks 3–4 (Ch. 3; Ch. 4: §4.1–4.2)
+
+Assessment
+
+HW1 assigned Fri 9/18, due Tue 10/6, 11:59 PM. Covers Module 1 + fairness in classification; AI-use disclosure required per course policy.
+
+Project team formation (2, 3, or 4; scope tiered by team size) due Mon 9/21
+
+Quiz 1 during the lab on 9/18
+
+Quiz 2 during the lab on 10/2
+
+[Module 3: Responsible Use of Data] (weeks 6–8)
+
+Week 6 / October 5–9
+
+Lecture (Mon, 10/5): Lifecycle overview, data profiling and data cleaning. Responsible data management across the lifecycle, from acquisition to deployment; how data collection and sampling encode societal bias, with predictive policing as a running example; profiling relational data. 
+
+Lecture (Wed, 10/7): Taming technical bias. Where technical bias enters data preprocessing and pipeline construction; the interplay between data cleaning choices and downstream model behavior; detecting data distribution bugs in machine learning pipelines.
+
+Lab (Fri, 10/9): Cleaning NYC Open Data
+
+Week 7 / October 12–16 (Mon 10/12 Fall Break; Wed 10/14 runs a Monday schedule, one lecture this week)
+
+Lecture (Wed, 10/14): Responsible data engineering, evaluation. Model selection under multiple criteria: accuracy, fairness, stability, and uncertainty; why evaluation is itself a responsibility question.
+
+Lab (Fri, 10/16): Responsible model selection with Virny and VirnyView.
+
+Week 8 / October 19–23
+
+Lecture (Mon, 10/19): Applied ethics. From research ethics to data science practice: the Belmont principles (respect for persons, beneficence, justice) and their extension to computing in the Menlo Report; applying principles-based reasoning to data science case studies.
+
+Lecture (Wed, 10/21): Applied ethics, continued. Principles-based reasoning for data science: the Belmont principles (respect for persons, beneficence, and justice) and their extension to computing in the Menlo Report, which adds respect for law and public interest and adapts the principles to research where the "subjects" are users, bystanders, and systems. From principles to practice: identifying stakeholders, weighing harms and benefits, and applying the principles to data science case studies.
+
+Lab (Fri, 10/23): DuckDB
+
+Quiz 3 (during lab)
+
+Assessment
+
+HW2 assigned Fri 10/16, due Tue 11/3, 11:59 PM
+
+Project proposal due Wed 10/14
+
+Quiz 3 during the lab on 10/23 
+
+[Module 4: Transparency & Interpretability] (weeks 9–12)
+
+Week 9 / October 26-30  
+
+Lecture (Mon, 10/26): Auditing black-box models. Why post-hoc explanations: local surrogate models and what it means for an explanation to be faithful.
+
+Lecture (Wed, 10/28): Auditing black-box models, continued.  Feature attribution with Shapley values; a unified view of additive explanation methods; quantifying input influence.
+
+Lab (Fri, 10/30): Explaining classification decisions with LIME
+
+Week 10 / November 2-6 
+
+Lecture (Mon, 11/2): Transparency in online ad delivery. Discrimination in ad delivery; auditing opaque advertising ecosystems from the outside.
+
+Lecture (Wed, 11/4): Transparency in online ad delivery, continued. How platform optimization can produce skewed outcomes even absent discriminatory targeting; automated experiments as an auditing methodology. 
+
+Lab (Fri, 11/6): Explaining classification decisions with SHAP
+
+Week 11 / November 9-13
+
+Lecture (Mon, 11/9): Transparency as Uncertainty Quantification; Aleatoric and Epistemic Uncertainty; intro to conformal prediction.
+Lecture (Wed, 11/11): Conformal prediction in regression and multi-classification settings; Stability and transparency.
+Lab (Fri, 11/13): UQ via Conformal prediction.
+Quiz 4 (during lab)
+
+Week 12 / November 16–20
+
+Lecture (Mon, 11/16): Interpretability for different stakeholders and purposes. Documenting data and models in practice: datasheets for datasets, reporting model performance across conditions and demographic groups; documentation as a mechanism for accountability and for communication among stakeholders.
+
+Lecture (Wed, 11/18): Synthesis; project presentation prep
+
+Lab (Fri, 11/20): Project part 1 presentations (5 sequential lab sections)
+
+Assessment
+
+HW3 assigned Fri 11/13, due Tue 12/1, 11:59 PM
+
+Project presentations Fri 11/20; teams incorporate feedback into the report
+
+Quiz 4 during the lab on 11/13
+
+[Module 5: AI Safety] (weeks 13–14)
+
+Week 13 / November 23–25 (Thanksgiving recess Thu–Fri, no lab)
+
+Lecture (Mon, 11/23): What is generative AI? Foundation models and LLMs: how they're built (pretraining, fine-tuning, learning from human feedback), what they can and can't do; the shift from task-specific models to foundation models, and why scale and generality change the responsibility picture.
+
+Lecture (Wed, 11/25): GenAI risks and harms: hallucination, bias, privacy leakage, misuse, and why evaluation is hard: benchmark contamination, prompt sensitivity, and the absence of ground truth for open-ended generation.
+
+Week 14 / November 30–December 4
+
+Lecture (Mon, 11/30): GenAI safety: alignment, guardrails, and red-teaming. From learning from human feedback and constitutional methods to system-level guardrails; red-teaming as adversarial evaluation of deployed systems.
+
+Lecture (Wed, 12/2): Guardrails, continued: legal and regulatory questions. From data protection to AI-specific regulation: the risk-based approach of the EU AI Act; standards and voluntary frameworks; US state and local regulation, and the emerging international governance landscape for frontier models.
+
+Lab (Fri, 12/4): Looking under the hood of an LLM with SafeLens.
+
+Quiz 5 (during lab)
+
+Assessment
+
+Project part 1 report due Tue 11/24, 11:59 PM
+
+HW3 due Tue 12/1, 11:59 PM
+
+Quiz 5 during the lab on 12/4
+
+[Wrap-up] (weeks 15–16) 
+
+Week 15 / December 7–11
+
+Lecture (Mon, 12/7): Course review
+
+Lecture (Wed, 12/9): Course review, cont.
+
+Lab (Fri, 12/11): Quiz 6 (covers the GenAI / AI Safety)
+
+Week 16 / December 14 (Monday only, last day of classes)
+
+Lecture (Mon, 12/14): Final exam in class.
+
+Assessment (dates subject to change, depending on final exam scheduling)
+
+Quiz 6 during the lab on 12/11
+
+Project final report due Fri 12/18, 11:59 PM
+
+Final exam in class on December 14.
+
+Course assessment
+All individual assignments (labs, quizzes, homeworks, and the written reflection) must be the student's own work, completed in accordance with the course AI use policy adopted by the class in Lab 1. Any use of AI tools must be disclosed as required by that policy. Undisclosed AI use, and any sharing or copying of solutions between students, is considered cheating and will result in an F in the course. A second cheating incident will result in a one-semester suspension from the program. Project deliverables are the joint work of the project team and are subject to the same AI use policy.
+
+Students accumulate up to 100 points during the course:
+
+Labs: 10 points. Includes participation credit for the Lab 1 AI use policy activity.
+
+Quizzes: 6 quizzes, best 5 count, 4 points each = 20 points.
+
+Homeworks: 3 assignments × 10 points = 30 points.
+
+Team project: 20 points (proposal: 2, part 1 presentation: 3, part 1 report: 5, final report: 10).
+
+Final exam: 20 points.
+
+Basis of Final Grade Determination
+
+A: 93 - 100; A-: 90 - 92; B+: 87 - 89; B: 83 - 86; B-: 80 - 82; C+: 77 - 79; C: 73 - 76; C-: 70 - 72; D+: 67 - 69; D: 63 - 66; D-: 60 - 62; F: below 60. Final letter grades are assigned from the weighted numerical total above. 
+
+
+Course Policies
+
+Attendance and Tardiness: Attendance is not graded. However, quizzes are given in class, as announced in advance, and students who arrive after a quiz has ended cannot take it. The quiz policy (the best five of six scores count) is designed to absorb one missed quiz, for any reason, with no makeup needed. This course is strongly cumulative.  For example, the transparency and interpretability material of weeks 9–11 assumes fluency with the fairness and data lifecycle material that precedes it, and the course project draws on all of it. Students who fall behind rarely recover without help. Two absences may be taken without explanation. Students who miss a session should review the posted slides and lab notebooks, work through that week's materials, and bring what remains unclear to office hours. No medical documentation is requested for any absence. The one session where attendance is strictly required is the Lab during week 12 (Fri, 11/20), when  project presentations will take place. A team member who cannot present must arrange this with the instructor in advance.
+
+Late Assignments: Each student has two late days for the semester, to be used on the homework assignments at the student's discretion, with no permission or explanation needed. The two late days form a single budget across all three homeworks: a student may use none at all, one day on each of two homeworks, or both days on a single homework. Once the two late days are exhausted, no late days remain for the rest of the semester. Late days are counted in whole days from the deadline: a homework submitted even one hour late has used one late day, and at the 24-hour mark it begins using the second. A homework submitted after a student's late days are exhausted, or more than two days after the deadline, receives no credit. Late days apply only to the three homework assignments; no other assignment may be submitted late. Quizzes cannot be made up; the drop policy (the best five of six count) absorbs a missed quiz, and the project deliverables are due as scheduled, with project deadlines shared by the whole team.
+
+Religious Observance: New York University seeks to maintain a welcoming and equitable environment for students with diverse religious, spiritual, or similarly organized ethical belief systems and backgrounds. As a nonsectarian institution, NYU adheres to the general policy of including in the official calendar of the University only certain legal holidays. In a commitment to the spirit of pluralism, in compliance with New York State law, and as a matter of long-standing University policy, students may, without penalty, excuse themselves from academic obligations and otherwise receive a reasonable accommodation when required for religious and spiritual holidays and observances, as defined and set forth in this policy.
+
+
+Academic Honesty: NYU students and faculty are expected to maintain the highest standards of academic honesty. Students can find information on the core principles and standards in the University’s policy on academic integrity.
+
+
+Artificial Intelligence Statement
+
+This course treats the responsible use of AI as part of its subject matter and as a matter of classroom practice. During the first lab, held asynchronously on the course discussion board, the class deliberates on and adopts the course AI use policy. Course staff publish a starter policy in which some elements are fixed and explained (quizzes and the final exam are AI-free, and disclosure of AI use is always required), while several decisions are genuinely open: how much AI is permitted in homework code and in written work, what a disclosure must contain, and how students are asked to explain their work. These are discussed in each lab section and voted on by the class. Where sections disagree, the instructors decide and explain their reasoning. The adopted policy is presented in lecture, posted on Brightspace, and governs the rest of the semester. Participation in the deliberation counts toward the lab grade.
+
+Every individual assignment, including all three homework assignments, requires an AI-use disclosure in the format the class adopts, stating which tools were used and how. Project deliverables are subject to the same policy. Undisclosed AI use is treated as cheating under the academic honesty policy above and will result in an F in the course.
+
+
+Student Accessibility
+
+New York University is committed to providing equal educational opportunity and participation for students of all abilities. We work with NYU students to determine appropriate and reasonable accommodations that support equal access to a world-class education. Students requesting academic accommodations are advised to reach out to the Moses Center for Student Accessibility as early as possible in the semester for assistance.
+
+ 
+
+Moses Center for Accessibility and Inclusive Culture
+
+Telephone: 212-998-4980
+
+Website: https://www.nyu.edu/life/community-flourishing/centers-and-communities/accessibility.html
+
+Email: mosescenter@nyu.edu
+
+ 
+
+Student Wellness
+
+In a large, complex community like NYU, it's vital to reach out to others, particularly those who are isolated or engaged in self-destructive activities. Student wellness is the responsibility of all of us.  The NYU Wellness Exchange is the constellation of NYU’s programs and services designed to address the overall health and mental health needs of its students. Students can access this service 24 hours a day, seven days a week -  wellness.exchange@nyu.edu; (212) 443-9999. Students can call the Wellness Exchange hotline (212-443-9999) or the NYU Counseling Service (212-998-4780) to make an appointment for Single Session, Short-term, or Group counseling sessions.

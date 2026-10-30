@@ -1,0 +1,142 @@
+
+
+  
+DS-US 202: Responsible Data Science, Fall 2026
+Course Project: Technical Audit of an Automated Decision System
+Timeline
+● assigned on September 14
+● teams formed by September 21
+● proposal due on October 14
+● draft report due on November 24
+● final report & presentation due on December 18
+You may not use any late days towards the course project deliverables.
+Objectives
+In this project, you will work in teams of 2, 3, or 4 to conduct a technical audit of an automated
+decision system (ADS) of your choice with clear scope based on team size. We suggest that
+you audit one of the systems developed in response to a Kaggle competition of your choice, but
+you should feel free to use other systems that are of interest to you. Do not focus on
+Northpointe’s COMPAS in this assignment, since this tool was already covered extensively
+during class. Be sure to prominently cite your sources of code and data!
+All team members should work together on all parts of the project. You should not discuss
+your project submission or components of your solution with any students other than your
+project partner. If you have questions about this assignment, please send a private question to
+all instructors on Piazza.
+Detailed description and goals
+In this project, we encourage you to focus on examples from Kaggle competitions, where the
+goals, the data, and one or several implementations are available for analysis. Select a Kaggle
+competition that has already finished, and for which you can find and successfully execute at
+least one solution. A list of solutions to Kaggle competitions is available here, and you may be
+able to find solutions in other ways. If you decide to work with a system that’s not from Kaggle,
+you should make sure that data and at least one implementation is available to you. Once
+again: Be sure to prominently cite your sources of code and data!
+Background reading
+Your report, and the corresponding Google Colab notebook(s), should be the result of the audit.
+We do not expect you to develop a UI or any other fancy data presentation methods. That said,
+it is important that the plots you produce are informative, and that they support your analysis.
+This reading list should inspire you to think about interesting ways to analyze your ADS.
+● “Closing the AI accountability gap: defining an end-to-end framework for internal
+algorithmic auditing”, Raji et al., ACM FAccT 2020,
+https://dl.acm.org/doi/10.1145/3351095.3372873
+● “Towards Algorithm Auditing: A Survey on Managing Legal, Ethical and Technological
+Risks of AI, ML and Associated Algorithms”, Koshiyama et al., 2021
+https://www.ssrn.com/abstract=3778998
+● “Problematic Machine Behavior: A Systematic Literature Review of Algorithm Audits”,
+Bandy, ACM CHI / CSCW 2021 https://dl.acm.org/doi/10.1145/3449148
+● “The algorithm audit: Scoring the algorithms that score us”, Brown et al., Big Data &
+Society 2021, https://journals.sagepub.com/doi/10.1177/2053951720983865
+● “Resume Format, LinkedIn URLs and Other Unexpected Influences of AI Personality
+Prediction in Hiring: Results of an Audit”, Rhea et al., AIES 2022
+https://dl.acm.org/doi/10.1145/3514094.3534189
+● “Nutritional labels for data and models”, Stoyanovich and Howe, IEEE Data Engineering
+Bulletin Special Issue on Fairness, Diversity, and Transparency in Data Systems 42(3),
+2019, http://sites.computer.org/debull/A19sept/p13.pdf
+● “The imperative of interpretable machines”, Stoyanovich, Van Bavel, West, Nature
+Machine Intelligence 2, 2020, https://rdcu.be/b57mr
+● “The dataset nutrition label: A Framework to drive higher data quality standards”, Holland
+et al., arXiv 2018, https://arxiv.org/abs/1805.03677
+● “Datasheets for datasets”, Gebru et al., Communications of the ACM, 2021
+https://cacm.acm.org/magazines/2021/12/256932-datasheets-for-datasets/fulltext
+● “Model cards for model reporting”, Mitchell et al., ACM FAT* 2019
+https://dl.acm.org/doi/10.1145/3287560.3287596
+● OpenAI’s GPT Is a Recruiter’s Dream Tool. Tests Show There’s Racial Bias
+(Bloomberg, 2024).
+Deliverables and grading
+The project is worth 20% of the course grade. There are six deliverables, see below for
+description and due dates. Each deliverable should be submitted once per group, using
+Gradescope's group submission feature to link all team members. You may not use any late
+days towards the course project deliverables.
+Grading: 20 points (proposal: 2, part 1 presentation: 3, part 1 report: 5, final report +
+presentation: 10).
+1. Project team formation, due by 11:59pm ET on September 21. Find a project group
+and fill out this form (one submission per group). We will assign a teaching assistant to
+shepherd your team, they will be your primary contact for any project-related questions.
+If you have not identified a group by the deadline above, let us know by filling out this
+form ASAP and no later than 9:00am ET on September 24 so we can pair you up
+promptly.
+2. Project proposal, due at 11:59pm ET on October 14. Submit a 1-page summary of
+your proposed project, listing the names of all group members and the ADS you propose
+to analyze in the project. Be explicit about where you’ll get the data and the code
+implementing the ADS: cite all sources properly in your project proposal (try to use
+Overleaf/Latex to practice). Leading up to the submission of your project proposal, you
+should make sure that the data is available, and that you are able to run the code on
+that data.
+As part of your project proposal, include a brief (1-3 sentence) explanation of why you
+selected this specific ADS, in relation to the topics we study in this course. We are still
+early in the course, but we encourage you to look at the schedule / syllabus for a full list
+of topics when answering this question.
+3. Project part 1 presentations during Labs on Friday, November 20. Prepare 4-5
+slides and a 3-minute elevator pitch summarizing your draft report (Deliverable 4). The
+presentation must follow the same report structure described below and include the
+“Background” and “Input and Output” sections, a detailed analysis plan for the other
+sections, and one early takeaway from your preliminary exploration. Each team member
+should be ready to present to classmates and instructors for feedback.
+4. Draft report, with Colab notebook, due at 11:59pm ET on November 24. Refer to the
+reading list above, and to the report structure at the end of this document. Submit a draft
+of your project report, filling in the “Background” and “Input and Output” sections. Also
+develop a detailed plan for the other sections (e.g., how you plan to audit the ADS’s
+performance), describe this plan in your draft, and include one early takeaway from your
+preliminary exploration. Where appropriate, incorporate the feedback you received
+during your presentation (Deliverable 3). Submit a PDF of your draft report and a Colab
+notebook used for your computations. Be sure to refer to the ADS you are auditing in
+your draft report.
+5. Final submission, due at 11:59pm ET on December 15. Submit your project report,
+implementation, and slides. You will be graded on your execution of the project (with a
+Colab notebook), and on the quality of the project report and presentation. You should
+submit a Colab notebook implementing your project, an accompanying written report in
+PDF format (up to 10 pages + an optional appendix), and a PDF version of your slides
+used for the project presentation (Deliverable 6).
+6. Project presentation, due at 11:59pm ET on December 18. Submit a 5 minute video
+of your presentation, in which you discuss your findings, and the slides you used in your
+presentation. Don’t speed up the video to fit within the 5-minute time limit, we’ll deduct
+points if you do.
+Note on building on existing analysis
+Some of the analysis this project asks for may already exist: the Kaggle competition page
+typically describes the data and the task, and the solution notebook you are auditing may
+include data profiling, validation results, or even some subgroup analysis. You may use and
+build on this material, but two rules apply.
+● First, cite it prominently and precisely: say in the report, at the point where you use it,
+whose analysis it is, give a link that lets us access it, and if you reproduce a figure or
+table, label it as reproduced.
+● Second, your report must contain substantial analysis of your own.
+Restating existing results, even with full citation, does not satisfy the requirements of Sections 2,
+4, and 5. Where you build on others’ work, make clear what they did and what you added.
+Unattributed reuse of code, figures, or text is an academic integrity violation; attributed reuse
+without your own contribution will be graded as if the corresponding section were missing.
+Submission instructions
+All project deliverables are submitted once per group on Gradescope, with all teammates
+linked to the submission.
+● Your project proposal, draft report, and final report should be submitted as PDF files (we
+suggest using Latex/Overleaf to practice!). You should submit a Google Colab notebook,
+or a collection of notebooks, that support the computations in your report. Finally, submit
+slides for your 5-minute presentation in PDF format.
+● In addition to the group's final report, each team member individually submits a brief
+project contributions statement discussing their own and their teammates' contributions
+to the project.
+Report structure (up to 10 pages + optional appendix)
+The outline below may be refined in response to clarification questions. We will post
+announcements on Bright Space if and when changes are made.
+You may use any of the methods we discussed in class, as well as additional methods you find
+in the literature, for your analysis.
+1. Background: general information about your chosen ADS
+a. What is the purpose of this ADS? What decisions does it aim to support, and
+what are its stated goals?
