@@ -1,0 +1,1 @@
+"""ICU mortality audit implementation."""

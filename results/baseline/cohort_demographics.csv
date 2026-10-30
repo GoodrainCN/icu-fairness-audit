@@ -1,0 +1,16 @@
+attribute,group,n,deaths
+age,45_to_64,30245,2008
+age,65_to_79,29952,2906
+age,80_plus,14040,1873
+age,Missing,4228,642
+age,under_45,13248,486
+gender,F,42219,3731
+gender,M,49469,4176
+gender,Missing,25,8
+ethnicity,African American,9547,750
+ethnicity,Asian,1129,93
+ethnicity,Caucasian,70684,6168
+ethnicity,Hispanic,3796,376
+ethnicity,Missing,1395,105
+ethnicity,Native American,788,70
+ethnicity,Other/Unknown,4374,353

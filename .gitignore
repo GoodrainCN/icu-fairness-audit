@@ -24,3 +24,7 @@ kaggle.json
 *.aux
 *.out
 *.synctex.gz
+/reference/
+/models/
+/tmp/
+/results/smoke/

@@ -1,0 +1,24 @@
+{
+  "encounters": 91713,
+  "columns": 186,
+  "patients": 91713,
+  "hospitals": 147,
+  "duplicate_encounter_ids": 0,
+  "duplicate_patient_rows": 0,
+  "deaths": 7915,
+  "missing_age": 4228,
+  "missing_gender": 25,
+  "missing_ethnicity": 1395,
+  "age_min": 16.0,
+  "age_max": 89.0,
+  "apache_4a_hospital_death_prob": {
+    "missing": 7947,
+    "negative": 2371,
+    "above_one": 0
+  },
+  "apache_4a_icu_death_prob": {
+    "missing": 7947,
+    "negative": 2230,
+    "above_one": 0
+  }
+}
