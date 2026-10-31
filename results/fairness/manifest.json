@@ -1,0 +1,36 @@
+{
+  "seed": 20261030,
+  "resamples": 10000,
+  "confidence_level": 0.95,
+  "method": "within-group nonparametric patient bootstrap, exact multinomial count implementation, percentile CI",
+  "unique_patient_check": true,
+  "threshold": 0.5,
+  "split_seed": 420,
+  "min_outcomes_for_ci": 20,
+  "references": {
+    "gender": "M",
+    "age": "45_to_64",
+    "ethnicity": "Caucasian"
+  },
+  "reference_rule": "Largest observed group in fit partition, without consulting error rates",
+  "units": "CSV differences are proportions; report uses percentage points",
+  "scope": "Fixed model and split; not training, hospital-cluster or multiple-comparison adjusted uncertainty",
+  "input_sha256": "27861c711f8c196c2a5c858005075fff61df4fb48f6d350c5120cdf45317adeb",
+  "input_files": {
+    "baseline": {
+      "run_manifest.json": "418e06a87e500e56d17d4573bb92adeee0b5ced8dd7fff13da199aa9ef426fcd",
+      "subgroup_metrics.csv": "ec5610c5311e8739ba7916a8eb0689405c826e321059581f0aded9011b6f401f"
+    },
+    "APACHE_bounded": {
+      "run_manifest.json": "f68e8d023afbef45460b578aa526ee4ebd68ef1db0ac53e7bf8cfc032835441f",
+      "subgroup_metrics.csv": "1ac1134d96b6f0424227eb2ad5f2bd7d1ccefc0533b242fe0a7e5bd610e1caa6"
+    },
+    "APACHE_dropped": {
+      "run_manifest.json": "615a27c2b3a4b738b658529ea2bf1f2c5374a8e674081fb39a77a3c3d43d0c8d",
+      "subgroup_metrics.csv": "886f798c429399cbe5e5e0d214132f928a439ea523cefdfd9afa9f55f496b6ce"
+    }
+  },
+  "implementation_sha256": "d6adde41d53808929ff718397085d8c3c3975b37f9840dbe9309d0f4b89dcfe4",
+  "numpy_version": "2.0.2",
+  "pandas_version": "2.3.3"
+}

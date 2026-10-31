@@ -4,6 +4,16 @@
 
 P0：交付关键路径；P1：核心分析。所有年份为 2026。除注明的课程截止日期外，日期均为建议内部目标。负责人暂未分配，全体成员共同参与并交叉审阅。
 
+## 当前分析顺序（2026-10-30 更新）
+
+1. Data validation：APACHE 负值、缺失模式、插补方法与预处理敏感性。
+2. Fairness metrics：已完成三个模型的 gender、age、ethnicity 汇总；见 `reports/公平性分析.md`。
+3. Statistical uncertainty：已完成 10,000 次组内患者 bootstrap，生成 FNR/FPR 差异的 pointwise 95% CI；小样本按规则不报区间。
+4. Intersectional fairness：年龄×记录性别、记录性别×族裔；保留低支持量标记。
+5. Robustness：预先规定阈值网格、多随机划分、医院不重叠评估；报告全部结果，不按测试集挑方案。
+
+原基线保留作为对照；第 2、3 步已完成本地计算，未复用 proposal 的旧区间。下一步为交叉群体分析；各步骤先本地验证，再同步合作仓库。
+
 ## 1. [P0 · 11/02] 确认完整评分要求与最终截止日期
 
 Issue: https://github.com/GoodrainCN/icu-fairness-audit/issues/1

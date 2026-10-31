@@ -75,8 +75,18 @@ def patient_split(df, seed=420):
 class Preprocessor:
     """Fit all learned transformations only on the training partition."""
 
+    def __init__(self, apache_policy="as-recorded"):
+        if apache_policy not in {"as-recorded", "negative-to-missing", "negative-to-missing-bounded", "drop-probabilities"}:
+            raise ValueError("Unknown APACHE policy")
+        self.apache_policy = apache_policy
+
     def base(self, df):
         x = df.drop(columns=DROP, errors="ignore").copy()
+        probability_cols = [c for c in IMPUTE if c.startswith("apache_") and c in x]
+        if self.apache_policy in {"negative-to-missing", "negative-to-missing-bounded"}:
+            x[probability_cols] = x[probability_cols].mask(x[probability_cols] < 0)
+        elif self.apache_policy == "drop-probabilities":
+            x = x.drop(columns=probability_cols)
         for col, mapping in REPLACEMENTS.items():
             if col in x:
                 x[col] = x[col].replace(mapping)
@@ -87,7 +97,13 @@ class Preprocessor:
         self.empty = [c for c in x if x[c].isna().all()]
         x = x.drop(columns=self.empty)
         self.impute_cols = [c for c in IMPUTE if c in x]
-        self.imputer = IterativeImputer(random_state=seed, max_iter=10)
+        bounds = {}
+        if self.apache_policy == "negative-to-missing-bounded":
+            bounds = dict(min_value=np.array([0 if c.startswith("apache_") else -np.inf
+                                              for c in self.impute_cols]),
+                          max_value=np.array([1 if c.startswith("apache_") else np.inf
+                                              for c in self.impute_cols]))
+        self.imputer = IterativeImputer(random_state=seed, max_iter=10, **bounds)
         if self.impute_cols:
             x[self.impute_cols] = self.imputer.fit_transform(x[self.impute_cols])
         self.categories = {c: sorted(x[c].dropna().astype(str).unique().tolist())
@@ -202,7 +218,9 @@ def run(args):
         rounds = min(args.rounds, 30)
         data_hash = None
     else:
-        out = Path(args.output)
+        default_output = ("results/baseline" if args.apache_policy == "as-recorded"
+                          else "results/sensitivity/" + args.apache_policy)
+        out = Path(args.output or default_output)
         df = pd.read_csv(source_path)
         data_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
         rounds = args.rounds
@@ -212,7 +230,7 @@ def run(args):
           f"{len(df)} encounters; {df.patient_id.nunique()} patients", flush=True)
     train, valid, test = patient_split(df, args.seed)
     print("Train/validation/test sizes:", *(len(p) for p in (train, valid, test)), flush=True)
-    prep = Preprocessor().fit(train, args.seed)
+    prep = Preprocessor(args.apache_policy).fit(train, args.seed)
     x_train, x_valid = prep.transform(train), prep.transform(valid)
     params = dict(boosting="gbdt", objective="binary", metric="auc", num_leaves=15,
         min_data_in_leaf=90, learning_rate=0.01, max_depth=5, scale_pos_weight=1,
@@ -246,8 +264,10 @@ def run(args):
     pd.DataFrame({"feature": prep.features, "gain": model.feature_importance("gain")}).sort_values(
         "gain", ascending=False).to_csv(out / "feature_importance.csv", index=False)
     manifest = dict(run_time_utc=datetime.now(timezone.utc).isoformat(), source=SOURCE,
+        implementation_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         mode="synthetic_software_check" if args.smoke_test else "real_data_audit_adaptation",
         input_sha256=data_hash, seed=args.seed, threshold=args.threshold,
+        apache_policy=args.apache_policy,
         rounds_limit=rounds, best_iteration=model.best_iteration, parameters=params,
         patient_overlap=0, split_method="patient-level any-death stratification; 64/16/20 patients",
         feature_count=len(prep.features), features=prep.features,
@@ -257,7 +277,7 @@ def run(args):
             for name in ["numpy", "pandas", "scikit-learn", "lightgbm", "matplotlib"]},
         limitations=["Single-model adaptation, not the original four-fold competition ensemble.",
             "Original category/imputation behavior changed to prevent preprocessing leakage.",
-            "APACHE probabilities retained as in source; provenance needs further investigation.",
+            "APACHE policy is recorded; sensitivity runs do not establish a preferred model.",
             "No confidence intervals, hospital-disjoint results or causal fairness conclusions yet."])
     write_json(out / "run_manifest.json", manifest)
     plot_confusion(result, out / "confusion_matrix.png")
@@ -270,11 +290,13 @@ def run(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", default="data/raw/training_v2.csv")
-    parser.add_argument("--output", default="results/baseline")
+    parser.add_argument("--output", default=None)
     parser.add_argument("--seed", type=int, default=420)
     parser.add_argument("--rounds", type=int, default=7000)
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--smoke-test", action="store_true")
+    parser.add_argument("--apache-policy", default="as-recorded",
+                        choices=["as-recorded", "negative-to-missing", "negative-to-missing-bounded", "drop-probabilities"])
     args = parser.parse_args()
     if not 0 < args.threshold < 1 or args.rounds < 1:
         parser.error("threshold must be between 0 and 1; rounds must be positive")

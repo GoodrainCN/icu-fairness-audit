@@ -1,0 +1,18 @@
+{
+  "input_sha256": "27861c711f8c196c2a5c858005075fff61df4fb48f6d350c5120cdf45317adeb",
+  "seed": 420,
+  "rows": 91713,
+  "unique_patients": 91713,
+  "unique_hospitals": 147,
+  "negative_distinct_values": {
+    "apache_4a_hospital_death_prob": [
+      -1.0
+    ],
+    "apache_4a_icu_death_prob": [
+      -1.0
+    ]
+  },
+  "data_modified": false,
+  "imputation_fit_partition": "train_only",
+  "caution": "Invalid-range diagnostics do not establish sentinel semantics or causation. Iterative regression is unconstrained; derived risk features can exceed [0,1]."
+}

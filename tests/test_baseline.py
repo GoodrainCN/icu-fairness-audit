@@ -7,6 +7,21 @@ from src.baseline import Preprocessor, metrics, patient_split, synthetic_data, v
 
 
 class BaselineChecks(unittest.TestCase):
+    def test_apache_sensitivity_policies_do_not_change_raw_data(self):
+        data = synthetic_data()
+        col = "apache_4a_hospital_death_prob"
+        data.loc[0, col] = -1
+        self.assertEqual(Preprocessor().base(data).loc[0, col], -1)
+        self.assertTrue(np.isnan(Preprocessor("negative-to-missing").base(data).loc[0, col]))
+        self.assertNotIn(col, Preprocessor("drop-probabilities").base(data))
+        self.assertEqual(data.loc[0, col], -1)
+        train, valid, _ = patient_split(data)
+        prep = Preprocessor("negative-to-missing-bounded").fit(train, 420)
+        transformed = prep.transform(valid)
+        for c in ["apache_4a_hospital_death_prob", "apache_4a_icu_death_prob"]:
+            if c in transformed:
+                self.assertTrue(transformed[c].between(0, 1).all())
+
     def test_repeated_patients_never_cross_partitions(self):
         df = synthetic_data()
         validate_data(df)
