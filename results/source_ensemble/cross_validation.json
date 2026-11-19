@@ -1,0 +1,66 @@
+{
+  "source": "https://github.com/saminens/Women-in-Data-Science-2020/tree/a19d3ba",
+  "source_final_cell_index": 54,
+  "input_sha256": "27861c711f8c196c2a5c858005075fff61df4fb48f6d350c5120cdf45317adeb",
+  "labeled_encounters": 91713,
+  "deaths": 7915,
+  "competition_test_encounters_scored": 0,
+  "features": 174,
+  "correlation_drops": [
+    "paco2_for_ph_apache",
+    "h1_inr_max",
+    "h1_inr_min"
+  ],
+  "parameters": {
+    "boosting": "gbdt",
+    "objective": "binary",
+    "metric": "auc",
+    "num_leaves": 15,
+    "min_data_in_leaf": 90,
+    "learning_rate": 0.01,
+    "max_depth": 5,
+    "scale_pos_weight": 1,
+    "feature_fraction": 0.1,
+    "bagging_freq": 1,
+    "bagging_fraction": 0.75,
+    "use_missing": true,
+    "num_threads": 4
+  },
+  "seed": 420,
+  "rounds_limit": 7000,
+  "early_stopping_rounds": 100,
+  "folds": [
+    {
+      "fold": 1,
+      "validation_n": 22929,
+      "best_iteration": 3314,
+      "roc_auc": 0.9110225385642323
+    },
+    {
+      "fold": 2,
+      "validation_n": 22928,
+      "best_iteration": 2871,
+      "roc_auc": 0.9000762564824043
+    },
+    {
+      "fold": 3,
+      "validation_n": 22928,
+      "best_iteration": 2559,
+      "roc_auc": 0.9076761434462302
+    },
+    {
+      "fold": 4,
+      "validation_n": 22928,
+      "best_iteration": 2558,
+      "roc_auc": 0.9038316085666407
+    }
+  ],
+  "mean_fold_auc": 0.9056516367648768,
+  "pooled_out_of_fold_auc": 0.9055841728229017,
+  "versions": {
+    "pandas": "2.3.3",
+    "numpy": "2.0.2",
+    "sklearn": "1.6.1",
+    "lightgbm": "4.6.0"
+  }
+}

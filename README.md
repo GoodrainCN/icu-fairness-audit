@@ -30,6 +30,25 @@ The default run keeps patients separate across fit/validation/test, fits preproc
 
 `notebooks/01_baseline.ipynb` provides the equivalent notebook entry point. A private repository must be made accessible to your own authorized Colab session; no credentials are embedded. The synthetic check always writes to ignored `results/smoke/` and is not an ICU experiment.
 
+## Re-run the original four-fold configuration
+
+```sh
+.venv/bin/python -m src.source_ensemble
+```
+
+This entry point re-runs the final configuration in saminens' notebook on the
+full labeled competition file. It reports per-fold validation sizes, AUC and
+best boosting round, along with mean fold AUC and pooled out-of-fold AUC.
+It preserves the source's preprocessing order, which fits imputation before
+cross-validation. For an independent audit evaluation, hold out patients
+before learning preprocessing rules.
+
+If you have the official unlabeled competition file, add
+`--competition-test data/raw/unlabeled.csv` to exercise the source's joint
+category vocabulary and average the four predictions on those encounters.
+Only aggregate run results are written. See the
+[reproduction report](reports/source-ensemble-reproduction.md).
+
 ## Layout
 - `docs/`: proposal, course requirements, and planning notes
 - `data/raw/`: locally acquired source data (excluded from Git)

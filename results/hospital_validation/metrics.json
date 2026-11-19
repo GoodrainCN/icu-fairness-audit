@@ -1,0 +1,66 @@
+{
+  "seed": 420,
+  "development_n": 73220,
+  "development_deaths": 6525,
+  "development_hospitals": 117,
+  "test_hospitals": 30,
+  "hospital_overlap": 0,
+  "folds": [
+    {
+      "fold": 1,
+      "train_n": 54915,
+      "validation_n": 18305,
+      "validation_auc": 0.906999387467552,
+      "best_iteration": 2127,
+      "features": 174
+    },
+    {
+      "fold": 2,
+      "train_n": 54915,
+      "validation_n": 18305,
+      "validation_auc": 0.9049899956955787,
+      "best_iteration": 3817,
+      "features": 174
+    },
+    {
+      "fold": 3,
+      "train_n": 54915,
+      "validation_n": 18305,
+      "validation_auc": 0.9022829832249653,
+      "best_iteration": 2791,
+      "features": 174
+    },
+    {
+      "fold": 4,
+      "train_n": 54915,
+      "validation_n": 18305,
+      "validation_auc": 0.9066989470471809,
+      "best_iteration": 2594,
+      "features": 174
+    }
+  ],
+  "supported_sites": 17,
+  "site_fnr_range": [
+    0.5652173913043478,
+    0.8125
+  ],
+  "performance_at_0_50": {
+    "threshold": 0.5,
+    "n": 18493,
+    "deaths": 1390,
+    "death_rate": 0.07516357540691072,
+    "roc_auc": 0.9047093845709259,
+    "accuracy": 0.9400854377331963,
+    "precision": 0.7049418604651163,
+    "recall": 0.3489208633093525,
+    "fnr": 0.6510791366906474,
+    "fpr": 0.011869262702449862,
+    "f1": 0.4667949951876805,
+    "mean_predicted_risk": 0.0844861861625587,
+    "observed_minus_predicted": -0.00932261075564797,
+    "tn": 16900,
+    "fp": 203,
+    "fn": 905,
+    "tp": 485
+  }
+}

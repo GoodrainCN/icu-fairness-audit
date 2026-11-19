@@ -1,0 +1,100 @@
+{
+  "source": "https://github.com/saminens/Women-in-Data-Science-2020/tree/a19d3ba",
+  "input_sha256": "27861c711f8c196c2a5c858005075fff61df4fb48f6d350c5120cdf45317adeb",
+  "holdout_id_sha256": "f815de0ed24ffb3904a907ae9411b39f25647a843b0b29dae8c1fc429d2436b7",
+  "preprocessing": "fit within each inner training fold using audit Preprocessor",
+  "package_versions": {
+    "lightgbm": "4.6.0",
+    "numpy": "2.0.2",
+    "pandas": "2.3.3"
+  },
+  "seed": 420,
+  "parameters": {
+    "boosting": "gbdt",
+    "objective": "binary",
+    "metric": "auc",
+    "num_leaves": 15,
+    "min_data_in_leaf": 90,
+    "learning_rate": 0.01,
+    "max_depth": 5,
+    "scale_pos_weight": 1,
+    "feature_fraction": 0.1,
+    "bagging_freq": 1,
+    "bagging_fraction": 0.75,
+    "use_missing": true,
+    "num_threads": 4
+  },
+  "rounds_limit": 7000,
+  "early_stopping_rounds": 100,
+  "apache_policy": "negative-to-missing-bounded",
+  "thresholds": [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "development_n": 73370,
+  "references": {
+    "gender": "M",
+    "age": "45_to_64",
+    "ethnicity": "Caucasian"
+  },
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20261030,
+  "min_outcomes_for_interval": 20,
+  "folds": [
+    {
+      "fold": 1,
+      "train_n": 55027,
+      "validation_n": 18343,
+      "validation_auc": 0.8973162042404607,
+      "best_iteration": 2064,
+      "features": 174
+    },
+    {
+      "fold": 2,
+      "train_n": 55027,
+      "validation_n": 18343,
+      "validation_auc": 0.9012512494779708,
+      "best_iteration": 3659,
+      "features": 174
+    },
+    {
+      "fold": 3,
+      "train_n": 55028,
+      "validation_n": 18342,
+      "validation_auc": 0.9104413099125099,
+      "best_iteration": 2786,
+      "features": 174
+    },
+    {
+      "fold": 4,
+      "train_n": 55028,
+      "validation_n": 18342,
+      "validation_auc": 0.9083453787307012,
+      "best_iteration": 1915,
+      "features": 174
+    }
+  ],
+  "overall": {
+    "threshold": 0.5,
+    "n": 18343,
+    "deaths": 1583,
+    "death_rate": 0.08629995093496157,
+    "roc_auc": 0.9071311458108755,
+    "accuracy": 0.9327263806356648,
+    "precision": 0.7317397078353254,
+    "recall": 0.34807327858496523,
+    "fnr": 0.6519267214150347,
+    "fpr": 0.012052505966587112,
+    "f1": 0.4717465753424658,
+    "mean_predicted_risk": 0.08521868216556493,
+    "observed_minus_predicted": 0.00108126876939664,
+    "tn": 16558,
+    "fp": 202,
+    "fn": 1032,
+    "tp": 551,
+    "brier": 0.05204157966834982
+  }
+}
