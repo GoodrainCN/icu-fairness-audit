@@ -1,56 +1,64 @@
 # Section 4 — Outcomes
 
-If a service reviewed the highest-scoring 10% of ICU encounters, which groups would be more likely to enter the queue or miss review? We evaluated a four-fold LightGBM ensemble retrained with the source hyperparameters and fold-local preprocessing. The 18,343 held-out encounters were excluded from training and early stopping but had been inspected in earlier exploratory analyses. The local file contained one encounter per recorded patient ID. WiDS supplied first-day measurements and in-hospital mortality labels. Review capacity and downstream action are hypothetical. [Competition protocol](https://physionet.org/content/widsdatathon2020/1.0.0/) · [Model reproduction](source-ensemble-reproduction.md)
+**How does the predictive performance of the WiDS mortality model vary across demographic groups, and how sensitive are observed fairness disparities to decision thresholds, patient risk distributions, and hospital populations?** The WiDS task predicts in-hospital mortality from first-day ICU data. We audited continuous scores from an ensemble retrained with the source hyperparameters and fold-local preprocessing. Its 18,343 held-out encounters were excluded from fitting and early stopping but had been inspected during earlier exploratory work. The review rules below were introduced by the audit. [Competition protocol](https://physionet.org/content/widsdatathon2020/1.0.0/) · [Model reproduction](source-ensemble-reproduction.md)
 
 ## 4(a) Performance by subgroup
 
-Across 1,583 deaths and 16,760 survivors, ROC-AUC was **0.9064**. The 1,834 review slots covered 917 deaths, giving **57.9% recall** and **50.0% precision**. AUC measures how often a death ranks above a survivor; recall and precision tell us how many deaths a fixed workload captures and how many reviewed encounters end in death. Age was the clearest difference in ranking: AUC was **0.8521 at ages 80+** and **0.9481 below 45**. We examined age because baseline risk varies across the life course, and recorded gender and ethnicity because an aggregate result can conceal differences in access to review. [Subgroup counts and metrics](../results/review_budget/groups.csv)
+ROC-AUC measures how often a death ranks above a survivor within a group. Calibration asks whether predicted probabilities agree with observed mortality. Both can be evaluated directly from scores. At 8.63% mortality, always predicting survival would achieve 91.37% accuracy while detecting no deaths. We therefore also report recall (fraction of deaths selected) and precision (fraction of selected encounters ending in death) under three hypothetical rules. We compare age because patient characteristics and mortality vary across the life course, and recorded gender and ethnicity because overall averages can conceal differences in prediction and allocation.
 
-## 4(b) Fairness under a common review budget
+**Primary holdout.** The risk column compares mean predicted risk with observed mortality. Each triple gives percentages when selecting the highest-scoring 5%, 10% and 20% of the entire cohort, in that order.
 
-All groups share one queue. We rank scores from highest to lowest, round the number of slots down and break ties by encounter ID. **FNR** measures the fraction of eventual deaths outside the queue. **FPR** measures the fraction of eventual survivors inside it. Equalized odds asks whether these two conditional rates are equal across groups. It makes differences in review allocation visible. The clinical value of any individual review depends on the information available at the time and what action review enables.
+| Group | Encounters | Deaths | AUC | Predicted / observed (%) | Recall (%) | Precision (%) |
+|---|---:|---:|---:|---:|---:|---:|
+| Overall | 18,343 | 1,583 | 0.9064 | 8.5 / 8.6 | 40.1 / 57.9 / 77.2 | 69.1 / 50.0 / 33.3 |
+| Age · Under 45 | 2,671 | 95 | 0.9481 | 4.0 / 3.6 | 45.3 / 63.2 / 80.0 | 69.4 / 53.1 / 36.4 |
+| Age · 45–64 | 6,012 | 412 | 0.9197 | 6.9 / 6.9 | 40.3 / 57.8 / 75.7 | 65.9 / 47.4 / 33.3 |
+| Age · 65–79 | 5,977 | 583 | 0.8991 | 9.7 / 9.8 | 40.0 / 57.6 / 77.5 | 70.8 / 51.5 / 33.5 |
+| Age · 80+ | 2,817 | 376 | 0.8521 | 12.7 / 13.3 | 37.2 / 56.1 / 77.9 | 68.3 / 47.4 / 32.6 |
+| Age · Missing | 866 | 117 | 0.8557 | 12.8 / 13.5 | 44.4 / 61.5 / 76.1 | 75.4 / 59.0 / 32.6 |
+| Gender · F | 8,481 | 744 | 0.9047 | 8.8 / 8.8 | 40.9 / 57.4 / 76.2 | 70.9 / 52.0 / 32.5 |
+| Gender · M | 9,857 | 837 | 0.9076 | 8.3 / 8.5 | 39.2 / 58.3 / 78.0 | 67.5 / 48.4 / 34.0 |
+| Gender · Missing † | 5 | 2 | 1.0000 | 46.6 / 40.0 | 100.0 / 100.0 / 100.0 | 100.0 / 50.0 / 50.0 |
+| Ethnicity · African American | 1,914 | 151 | 0.9062 | 8.3 / 7.9 | 42.4 / 58.9 / 76.2 | 64.6 / 49.2 / 32.8 |
+| Ethnicity · Caucasian | 14,170 | 1,244 | 0.9033 | 8.6 / 8.8 | 38.7 / 57.3 / 76.8 | 69.9 / 50.0 / 33.3 |
+| Ethnicity · Hispanic | 730 | 70 | 0.9291 | 9.3 / 9.6 | 48.6 / 62.9 / 85.7 | 75.6 / 57.1 / 39.7 |
+| Ethnicity · Asian † | 215 | 17 | 0.9213 | 8.3 / 7.9 | 47.1 / 58.8 / 70.6 | 72.7 / 58.8 / 27.9 |
+| Ethnicity · Native American † | 175 | 15 | 0.9446 | 9.0 / 8.6 | 53.3 / 73.3 / 93.3 | 80.0 / 52.4 / 40.0 |
+| Ethnicity · Other/Unknown | 858 | 64 | 0.9136 | 8.4 / 7.5 | 43.8 / 57.8 / 73.4 | 54.9 / 42.5 / 29.0 |
+| Ethnicity · Missing | 281 | 22 | 0.9347 | 8.0 / 7.8 | 50.0 / 59.1 / 81.8 | 84.6 / 50.0 / 34.0 |
 
-**Who is missed at 10% capacity?** The queue contained 1,834 encounters, including 917 eventual deaths and 917 survivors. The other 666 deaths fell outside it. The age comparison spans groups with different observed mortality. The gender comparison asks whether review captures deaths similarly across the two largest recorded categories. For ethnicity we emphasize the two largest named categories to give the rates reasonably supported denominators. Other groups, including missing categories, remain in the full tables. The demographic comparisons overlap and their counts should not be summed.
+† Fewer than 20 deaths or survivors. Estimates are unstable. The same encounters appear once per demographic dimension. [Subgroup counts](../results/review_budget/groups.csv) · [Calibration by score band](../results/review_budget/calibration_bins.csv)
 
-| Group | Deaths missed / deaths (FNR) | Survivors flagged / survivors (FPR) |
-|---|---:|---:|
-| 80 years and above | 165 / 376 (43.9%) | 234 / 2,441 (9.6%) |
-| Under 45 | 35 / 95 (36.8%) | 53 / 2,576 (2.1%) |
-| Recorded F | 317 / 744 (42.6%) | 394 / 7,737 (5.1%) |
-| Recorded M | 349 / 837 (41.7%) | 521 / 9,020 (5.8%) |
-| African American | 62 / 151 (41.1%) | 92 / 1,763 (5.2%) |
-| Caucasian | 531 / 1,244 (42.7%) | 712 / 12,926 (5.5%) |
+AUC decreased across the four observed age bands. The 80+ minus under-45 difference was −0.0960 (hospital-bootstrap 95% CI −0.128 to −0.059). Recorded F and M had similar AUC estimates, as did the two largest named ethnicity groups. The Hispanic group had higher observed AUC than either, with 70 deaths and no interval for that contrast. Close group means can hide miscalibration within a risk band. Among encounters aged 80+, the 5–10% risk band averaged 7.1% predicted and 8.7% observed mortality, while the 30–50% band averaged 38.4% predicted and 35.8% observed. Calibration slopes were 1.05 and 1.03 for recorded F and M, and 0.96 and 1.05 for African American and Caucasian encounters (ideal slope 1). These diagnostics are descriptive. [Calibration diagnostics and figure](outcomes-appendix.md) · [Subgroup slopes](../results/review_budget/calibration_summary.csv)
 
-| First group minus second | AUC gap (95% CI) | FNR gap in pp (95% CI) | FPR gap in pp (95% CI) |
-|---|---:|---:|---:|
-| 80+ minus under 45 | −0.096 (−0.128, −0.059) | +7.04 (−4.77, +16.19) | +7.53 (+6.27, +9.02) |
-| Recorded F minus M | −0.003 (−0.018, +0.013) | +0.91 (−4.60, +5.64) | −0.68 (−1.39, +0.05) |
-| African American minus Caucasian | +0.003 (−0.028, +0.031) | −1.63 (−9.07, +7.66) | −0.29 (−1.34, +1.07) |
+## 4(b) Fairness across hypothetical operating rules
 
-We fixed three contrasts for this follow-up after earlier exploratory inspection. They were not preregistered. The table gives pointwise percentile intervals from 4,000 bootstrap draws of whole hospitals with replacement (147 hospitals represented). Each draw recalculates the common queue capacity and group rates, conditional on fitted scores. The results file also gives Bonferroni-adjusted intervals for nine contrasts within each split (three comparisons × three metrics). In the patient holdout the adjusted age AUC interval is −0.140 to −0.045 and the adjusted age FPR interval is +5.72 to +9.75 pp. The remaining seven adjusted intervals include zero. This adjustment does not account for earlier exploratory choices or training uncertainty. We report other budgets, intersections and preprocessing variants descriptively. [Intervals and adjusted bounds](../results/review_budget/intervals.csv) · [Counts and rates](../results/review_budget/groups.csv)
+For each rule we select the top fraction across all encounters, round slots down and break ties by encounter ID. Earlier analyses used 10% as an illustrative reference for a shared queue. Neither the competition protocol nor the audit provides staffing or clinical evidence favoring it over 5% or 20%. Equalized odds is informative if a binary flag prompts review: FNR measures the fraction of deaths outside the queue and FPR the fraction of survivors inside. These rates describe who would receive attention. Calibration matters when the score is interpreted as a probability, and judging a review policy also requires evidence about its benefits and burdens.
 
-**Capacity sensitivity.** At 5%, 10% and 20% capacity, respectively, the 80+ minus under-45 FPR gap was +1.93, +7.53 and +19.66 pp. The corresponding FNR gaps were +8.03, +7.04 and +2.07 pp. The recorded F-minus-M FNR gap was −1.67, +0.91 and +1.81 pp. Thus which gender appears to have the higher miss rate changes with the queue size. The uncertainty at 10% prevents a firm ranking. [All capacity contrasts](../results/review_budget/gaps.csv)
+| Difference in percentage points (first group minus second) | 5% FNR | 5% FPR | 10% FNR | 10% FPR | 20% FNR | 20% FPR |
+|---|---:|---:|---:|---:|---:|---:|
+| 80+ minus under 45 | +8.03 | +1.93 | +7.04 | +7.53 | +2.07 | +19.66 |
+| Recorded F minus M | -1.67 | -0.14 | +0.91 | -0.68 | +1.81 | +1.19 |
+| African American minus Caucasian | -3.72 | +0.38 | -1.63 | -0.29 | +0.69 | -1.44 |
 
-## 4(c) What might account for the age difference?
+Older survivors were selected more often under all three rules, but the FPR gap widened as capacity increased. The age FNR gap narrowed. The gender and ethnicity FNR gaps each changed sign. Pointwise 95% intervals at 10% were +6.27 to +9.02 points for age FPR and −4.77 to +16.19 for age FNR. Only the age AUC and age FPR gaps excluded zero after adjustment for nine comparisons in the primary holdout. Intervals for FNR and FPR were calculated at 10% only; the cross-capacity patterns are descriptive. [Bootstrap methods and intervals](outcomes-appendix.md) · [All contrasts](../results/review_budget/gaps.csv)
 
-The 80+ group had higher observed mortality (13.3% versus 3.6%). That difference matters to a service prioritizing risk. FPR, however, uses survivors as its denominator. A difference in mortality prevalence alone does not determine the FPR gap. We therefore examined the **2,441 older and 2,576 younger survivors** in the primary holdout, keeping the original 10% queue fixed.
+## 4(c) Sensitivity to risk distributions, inputs and hospitals
 
-| Among eventual survivors | Ages 80+ | Under 45 |
-|---|---:|---:|
-| Recorded APACHE IVa hospital-death probability, median (quartiles) | 10% (5–18%) | 2% (1–4%) |
-| APACHE probability unavailable or invalid | 10.3% | 12.9% |
-| Mean fraction of 64 first-day measurement fields missing per encounter | 28.4% | 30.9% |
-| Observed fraction flagged for review | 9.59% | 2.06% |
-| Fraction flagged after standardizing the APACHE risk distribution | 6.32% | 5.13% |
+Among survivors, median recorded APACHE IVa hospital-death risk was 10% at ages 80+ and 2% under 45. At each capacity we kept individual flags fixed, calculated the age-specific FPR within six APACHE strata (five risk bands and one unavailable category), and averaged each group's rates using the same pooled stratum weights from 2,441 older and 2,576 younger survivors.
 
-For the last row, we calculated each age group's flag rate within the same six strata of recorded APACHE risk (up to 5%, then up to 10%, 20%, 50%, 100%, and unavailable). We averaged those rates using the pooled survivors’ stratum frequencies for both groups. The gap shrank from **7.53 to 1.19 percentage points**. A separate standardization by hospital changed the gap from **7.48 to 7.23 points** among survivors at the 127 hospitals represented in both groups. The two comparisons use separate weights. APACHE is a model-derived risk proxy and an input to the audited ensemble; it cannot isolate physiological severity independently of age. These descriptive estimates depend on the bands, and we did not estimate intervals for the standardized gaps. [Case mix by outcome](../results/review_budget/age_case_mix.csv) · [Standardization results](../results/review_budget/age_standardization.csv) · [Hospital composition](../results/review_budget/age_hospital_shares.csv)
+| Fraction selected | Raw age FPR gap (pp) | Standardized FPR, 80+ | Standardized FPR, under 45 | Standardized gap (pp) |
+|---|---:|---:|---:|---:|
+| 5% | +1.93 | 1.69% | 2.09% | -0.40 |
+| 10% | +7.53 | 6.32% | 5.13% | +1.19 |
+| 20% | +19.66 | 17.21% | 11.71% | +5.49 |
 
-The raw age FPR gap remained between +7.33 and +7.53 points across three APACHE input treatments. Removing the risk fields tests sensitivity to an input choice; reweighting survivors tests sensitivity to the mix of cases being compared. [APACHE baseline, calibration, cutoff sensitivity and hospital details](outcomes-appendix.md)
+Standardization reduced the absolute gap at every capacity. The residual changed sign at 5% and remained positive at 20%. APACHE is a model-derived risk proxy and an ensemble input. The association depends on the chosen bands and does not identify a causal mechanism. No interval was estimated for the standardized gaps. [All three standardizations](../results/review_budget/age_standardization_by_capacity.csv)
 
-**Sensitivity to hospital selection.** We kept the pooled 10% rule and inner fitting protocol fixed and tested the original hospital split plus two consecutive outer seeds, refitting all four models for each new split. Each split held out 30 hospitals. The 80+ minus under-45 FPR gaps were **+7.97, +7.19 and +5.99 pp** (seeds 420–422). The corresponding FNR gaps were **−8.58, +5.87 and +3.93 pp**. These point estimates describe sensitivity to site selection within WiDS. The original split was previously inspected and shared 3,713 test encounters with the primary holdout. The two additional splits shared 5,382 and 2,640, respectively. None provides independent external confirmation. [Results for every seed and contrast](../results/review_budget/hospital_split_sensitivity.csv)
+Across three APACHE input treatments, the ensemble's overall AUC ranged from 0.9064 to 0.9086 and the oldest group had lower AUC than the youngest in each refit. On the same 16,279 encounters with valid APACHE scores, the ensemble exceeded APACHE alone by 0.0469 AUC (paired 95% CI 0.0406 to 0.0537). Both comparisons evaluate ranking independently of a review rule. [Baseline and input sensitivity](outcomes-appendix.md)
 
-## Findings and Interpretation
+Holding out 30 hospitals gave overall AUC 0.9047. Across three hospital splits the older group's AUC was lower each time. At 10% capacity its FNR gap varied from −8.58 to +5.87 points and its FPR gap from +5.99 to +7.97 points. These are overlapping internal splits from the same dataset. [Split-specific contrasts](../results/review_budget/hospital_split_sensitivity.csv)
 
-Older survivors entered the simulated review queue more often. The direction recurred across hospital splits, but the magnitude depended strongly on the risk profiles being compared. An older survivor could have been an appropriate candidate for review given the information available on the first ICU day. Equalizing the proportion reviewed among eventual survivors would be a policy choice requiring evidence about clinical need, benefit and burden.
+## Findings and interpretation
 
-The audit supports lower within-group discrimination at ages 80+ in the primary holdout. It leaves the direction of age differences in missed deaths uncertain across hospitals. The survivor standardization addresses the flag-rate gap only. The mechanisms behind the AUC difference, the benefit patients would receive from review, and whether the observed allocation constitutes unfair treatment remain unresolved.
+The clearest model-level disparity is weaker mortality-risk ranking within the oldest group. Under the three simulated policies, older survivors were flagged more often, with a gap strongly associated with capacity and the distribution of predicted APACHE risk. The evidence does not identify an age group that consistently misses review across hospitals. Survival alone cannot establish whether a review was warranted. A judgment about unfair treatment would require evidence about clinical need, decisions and consequences.

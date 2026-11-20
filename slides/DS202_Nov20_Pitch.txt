@@ -1,0 +1,14 @@
+DS202 | ICU mortality audit
+Three-minute poster pitch
+
+1. Background | 0:00–0:35
+Our project starts with a practical question. Suppose an ICU team can review just one chart in ten. If it uses a mortality score to choose those charts, who gets reviewed, and who falls outside the queue? We chose the WiDS model because it lets us study how a prediction could shape access to clinicians’ attention. The competition asked for a risk score. The shared review queue is our hypothetical use of that score.
+
+2. Inputs and output | 0:35–1:15
+We used first-day ICU measurements from the labeled WiDS dataset. We retrained a public four-fold LightGBM ensemble with the author’s hyperparameters, fitting the preprocessing separately within each training fold. Across about eighteen thousand held-out encounters, the overall AUC was point nine one. In the shared queue, half the reviewed encounters ended in death. Those same slots captured fifty-eight percent of all deaths. Those two numbers answer different questions: what clinicians would see in the queue, and whom the queue would miss.
+
+3. Preliminary finding | 1:15–2:10
+Age showed the clearest difference. Imagine picking one survivor and one patient who died from the same age group. The model ranked the patient who died higher about ninety-five percent of the time below age forty-five, compared with eighty-five percent at age eighty or above. The confidence interval supports that ranking difference. At our review capacity, we captured sixty-three percent of younger deaths and fifty-six percent of older deaths, but the interval for that gap includes zero. Recall estimates were closer for recorded women and men and for the two largest ethnicity categories. Similar estimates alone cannot establish equal performance.
+
+4. Detailed analysis plan | 2:10–3:00
+Our full audit tests what happens when capacity changes, when we compare patients with similar predicted risk, and when entire hospitals are held out. One result shows why interpretation matters. Older survivors entered the queue more often, but after giving both age groups the same mix of APACHE risk bands, the gap shrank from about seven and a half percentage points to just over one. That suggests case mix matters. To decide whether the allocation was unfair, we would also need to know which patients actually benefited from review.

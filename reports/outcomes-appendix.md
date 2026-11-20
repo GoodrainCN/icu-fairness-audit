@@ -1,6 +1,6 @@
 # Section 4 appendix
 
-The primary analysis uses one shared review queue with a fixed capacity. The historical cutoff results below document how earlier analyses translated scores into flags. [Main report](outcomes.md)
+The primary analysis evaluates continuous scores. The main report also compares three hypothetical review capacities. The historical cutoff results below document how earlier analyses translated scores into flags. [Main report](outcomes.md)
 
 ## Subgroup performance at the historical 0.50 cutoff
 
@@ -84,6 +84,25 @@ One group shuffle split (seed 420) randomly selected 30 of 147 hospital IDs, wit
 | African American minus Caucasian | 71 / 1,208 vs 1,166 / 15,377 | +0.007 (−0.021, +0.032) | +5.71 (−5.48, +15.78) | +1.06 (−0.47, +2.56) |
 
 The older group's FPR gap persists after nine-comparison adjustment (+6.05 to +10.26 pp). Its AUC gap points in the same direction as in the primary cohort, though its adjusted interval includes zero (−0.124 to +0.016). Its FNR gap reverses direction. Among the 17 hospitals with at least 20 deaths and 20 survivors, site FNR ranged from 17.9% to 58.3%, FPR from 3.1% to 25.6%, and AUC from 0.752 to 0.968. These unadjusted ranges describe site variation and include sampling noise. A pooled capacity does not guarantee equal review volume at each hospital. [Hospital-level counts and performance](../results/review_budget/sites.csv) · [Intervals](../results/review_budget/intervals.csv)
+
+## Counts and uncertainty at the illustrative 10% capacity
+
+| Group | Deaths missed / deaths (FNR) | Survivors flagged / survivors (FPR) |
+|---|---:|---:|
+| 80 years and above | 165 / 376 (43.9%) | 234 / 2,441 (9.6%) |
+| Under 45 | 35 / 95 (36.8%) | 53 / 2,576 (2.1%) |
+| Recorded F | 317 / 744 (42.6%) | 394 / 7,737 (5.1%) |
+| Recorded M | 349 / 837 (41.7%) | 521 / 9,020 (5.8%) |
+| African American | 62 / 151 (41.1%) | 92 / 1,763 (5.2%) |
+| Caucasian | 531 / 1,244 (42.7%) | 712 / 12,926 (5.5%) |
+
+| First group minus second | AUC gap (95% CI) | FNR gap in pp (95% CI) | FPR gap in pp (95% CI) |
+|---|---:|---:|---:|
+| 80+ minus under 45 | −0.096 (−0.128, −0.059) | +7.04 (−4.77, +16.19) | +7.53 (+6.27, +9.02) |
+| Recorded F minus M | −0.003 (−0.018, +0.013) | +0.91 (−4.60, +5.64) | −0.68 (−1.39, +0.05) |
+| African American minus Caucasian | +0.003 (−0.028, +0.031) | −1.63 (−9.07, +7.66) | −0.29 (−1.34, +1.07) |
+
+We fixed three contrasts for this follow-up after earlier exploratory inspection. They were not preregistered. The table gives pointwise percentile intervals from 4,000 bootstrap draws of whole hospitals with replacement (147 hospitals represented). Each draw recalculates the common queue capacity and group rates, conditional on fitted scores. The results file also gives Bonferroni-adjusted intervals for nine contrasts within each split (three comparisons × three metrics). In the patient holdout the adjusted age AUC interval is −0.140 to −0.045 and the adjusted age FPR interval is +5.72 to +9.75 pp. The remaining seven adjusted intervals include zero. This adjustment does not account for earlier exploratory choices or training uncertainty. We report other budgets, intersections and preprocessing variants descriptively. [Intervals and adjusted bounds](../results/review_budget/intervals.csv) · [Counts and rates](../results/review_budget/groups.csv)
 
 ## Reproduction
 

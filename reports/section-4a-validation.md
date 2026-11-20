@@ -1,0 +1,7 @@
+# Section 4(a) validation
+
+Reconstructed the primary holdout using the existing patient split (seed 420) and joined the saved as-recorded ensemble scores one-to-one by encounter ID. All 18,343 encounter IDs matched. Sorting the entire holdout by descending score and then ascending encounter ID selected 1,834 encounters, including 917 of the 1,583 observed deaths.
+
+For each of the 16 table rows, recomputed ROC-AUC from continuous scores, recall from selected deaths divided by deaths, and precision from selected deaths divided by selected encounters. Group counts, event counts, selected counts, missed deaths and flagged survivors matched the archived results exactly. AUC agreed within 1e-12 before rounding. All six subgroup confusion-count comparisons in Section 4(b) reconciled with the same queue. Text before Section 4(a) and from Section 4(b) onward was identical before and after the edit.
+
+No numerical discrepancies were found. Missing recorded gender, Asian and Native American rows have fewer than 20 deaths and carry a small-sample warning. Precision differences and contrasts involving the Hispanic group are descriptive because the existing analysis provides no intervals for those comparisons. No models were refitted. [Review-budget implementation](../src/review_budget.py) · [Archived counts](../results/review_budget/groups.csv) · [Available intervals](../results/review_budget/intervals.csv)

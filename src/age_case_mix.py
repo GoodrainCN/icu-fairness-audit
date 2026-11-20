@@ -4,7 +4,7 @@ import pandas as pd
 
 from src.baseline import demographic_groups, patient_split
 from src.outcomes import SPLIT_SEED
-from src.review_budget import OUT, ranked
+from src.review_budget import BUDGETS, OUT, ranked
 
 AGE_GROUPS = ["80_plus", "under_45"]
 
@@ -28,7 +28,8 @@ def main():
     scores = pd.read_csv("data/processed/scores-as-recorded.csv")
     assert set(scores.encounter_id) == set(test.encounter_id)
     data = ranked(test.merge(scores, on="encounter_id", validate="one_to_one"))
-    data["flag"] = np.arange(len(data)) < len(data)//10
+    cohort_size = len(data)
+    data["score_rank"] = np.arange(cohort_size)
     data["age_group"] = demographic_groups(data).age
     data = data[data.age_group.isin(AGE_GROUPS)].copy()
     fields = [c for c in raw if c.startswith("d1_")]
@@ -53,10 +54,18 @@ def main():
     pd.DataFrame(rows).to_csv(OUT/"age_case_mix.csv", index=False)
     pd.concat(distributions).to_csv(OUT/"age_hospital_shares.csv", index=False)
     survivors = data[data.hospital_death.eq(0)]
-    bands = survivors.groupby(["risk_band", "age_group"]).flag.agg(n="size", flagged="sum", fpr="mean")
-    bands.to_csv(OUT/"age_survivor_risk_bands.csv")
-    pd.DataFrame([standardize(survivors, f) for f in ["risk_band","hospital_id"]]).to_csv(
-        OUT/"age_standardization.csv", index=False)
+    estimates = []
+    for budget in BUDGETS:
+        selected = survivors.assign(flag=survivors.score_rank < int(np.floor(budget * cohort_size)))
+        risk = standardize(selected, "risk_band")
+        estimates.append(dict(budget=budget, **risk))
+        if budget == 0.10:
+            # Preserve existing reference-scenario outputs for earlier reports.
+            bands = selected.groupby(["risk_band", "age_group"]).flag.agg(n="size", flagged="sum", fpr="mean")
+            bands.to_csv(OUT/"age_survivor_risk_bands.csv")
+            pd.DataFrame([risk, standardize(selected, "hospital_id")]).to_csv(
+                OUT/"age_standardization.csv", index=False)
+    pd.DataFrame(estimates).to_csv(OUT/"age_standardization_by_capacity.csv", index=False)
 
 
 if __name__ == "__main__":
